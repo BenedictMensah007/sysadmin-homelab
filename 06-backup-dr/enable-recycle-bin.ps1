@@ -1,0 +1,1 @@
+Enable-ADOptionalFeature -Identity 'Recycle Bin Feature' -Scope ForestOrConfigurationSet -Target 'lab.local' -Confirm:$false
