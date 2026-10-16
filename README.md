@@ -21,7 +21,7 @@ A hands on Windows Server and Linux lab built to practice real systems administr
 * Group Policy: password policy, login banner, Control Panel restriction
 * File server with department shares and permissions
 * Linux authentication through Active Directory, with login and sudo limited to one AD group
-* Backup and recovery
+* Backup and recovery: backup scripts and the AD Recycle Bin for restoring deleted objects
 * Incident write-up: the Ubuntu server stopped booting, and I rebuilt it
 
 ## Folder guide
@@ -29,9 +29,9 @@ A hands on Windows Server and Linux lab built to practice real systems administr
 * [01-domain-structure](01-domain-structure): OUs, groups and bulk users
 * [02-dhcp-dns](02-dhcp-dns): DHCP and DNS setup
 * [03-group-policy](03-group-policy): Group Policy objects
-* [04-file-server](04-file-server): department shares and permissions
-* [05-linux-access](05-linux-access): Ubuntu joined to the domain, with group based login
-* [06-backup-dr](06-backup-dr): backup and recovery
+* [04-file-server](04-file-server): PowerShell script that builds the department shares and permissions
+* [05-linux-access](05-linux-access): notes on joining Ubuntu to the domain and logging in with AD accounts
+* [06-backup-dr](06-backup-dr): backup scripts, backup disk preparation and the AD Recycle Bin, with notes
 * [07-incident-ubuntu-rebuild](07-incident-ubuntu-rebuild): what broke, what I checked, and how I rebuilt the Ubuntu server
 * [screenshots](screenshots): proof of the results
 
