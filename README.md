@@ -1,98 +1,62 @@
-# sysadmin-homelab
+# Sysadmin Homelab
 
-\# Sysadmin Homelab
+A hands on Windows Server and Linux lab built to practice real systems administration work. Everything runs in Hyper-V on one machine and is managed with PowerShell. Each folder documents one part of the build, and the newest one is a write-up of a real failure and how I recovered from it.
 
+## Lab setup
 
+| Machine | Role | Address |
+|---|---|---|
+| DC-2025 (DC01) | Windows Server 2025 Datacenter (Server Core): Active Directory, DNS, DHCP and the file server | 192.168.100.10 |
+| Ubuntu-Server | Ubuntu Server 26.04 LTS joined to the domain, mounts the Departments share | 192.168.100.20 |
 
-A hands on Windows Server and Linux lab built to practice real systems administration work. Everything runs in Hyper-V on one machine and is managed with PowerShell.
+* Domain: lab.local
+* Network: one internal Hyper-V switch for the lab, plus a second adapter on the Ubuntu server for updates
+* Everything is managed from my laptop over PowerShell Direct and SSH
 
+## What I built
 
+* Active Directory structure: OUs, security groups, users
+* Bulk user creation from a CSV with PowerShell
+* DHCP scope and DNS records, including a reverse lookup zone
+* Group Policy: password policy, login banner, Control Panel restriction
+* File server with department shares and permissions
+* Linux authentication through Active Directory, with login and sudo limited to one AD group
+* Backup and recovery
+* Incident write-up: the Ubuntu server stopped booting, and I rebuilt it
 
-\## Lab setup
+## Folder guide
 
+* [01-domain-structure](01-domain-structure): OUs, groups and bulk users
+* [02-dhcp-dns](02-dhcp-dns): DHCP and DNS setup
+* [03-group-policy](03-group-policy): Group Policy objects
+* [04-file-server](04-file-server): department shares and permissions
+* [05-linux-access](05-linux-access): Ubuntu joined to the domain, with group based login
+* [06-backup-dr](06-backup-dr): backup and recovery
+* [07-incident-ubuntu-rebuild](07-incident-ubuntu-rebuild): what broke, what I checked, and how I rebuilt the Ubuntu server
+* [screenshots](screenshots): proof of the results
 
-
-\* Windows Server 2025 Datacenter (Server Core) as the domain controller
-
-\* Ubuntu Server joined to the domain
-
-\* Domain: lab.local
-
-
-
-\## What I built
-
-
-
-\* Active Directory structure: OUs, security groups, users
-
-\* Bulk user creation from a CSV with PowerShell
-
-\* DHCP scope and DNS records, including a reverse lookup zone
-
-\* Group Policy: password policy, login banner, Control Panel restriction
-
-\* Linux authentication through Active Directory
-
-
-
-\## Folder guide
-
-
-
-\* 01-domain-structure: OUs, groups and bulk users
-
-\* 02-dhcp-dns: DHCP and DNS setup
-
-\* 03-group-policy: Group Policy objects
-
-
-
-\## How the scripts are run
-
-
+## How the scripts are run
 
 Scripts are written on my laptop and sent to the domain controller with PowerShell Direct:
 
-
-
 ```powershell
-
-Invoke-Command -VMName "DC-2025" -Credential $cred -FilePath .\\01-domain-structure\\create-structure.ps1
-
+Invoke-Command -VMName "DC-2025" -Credential $cred -FilePath .\01-domain-structure\create-structure.ps1
 ```
 
+## What I learned
 
+* Reading error messages carefully solves most problems
+* Managing a server remotely without a desktop is faster than I expected
+* Good documentation is part of the job
+* A checkpoint is not a backup, so I export the VM as well
+* Take a checkpoint after every working stage, not after something breaks
+* When a console freezes, work over SSH instead
 
-\## What I learned
+## Next
 
+* Second domain controller
+* Microsoft Entra hybrid setup
 
-
-\* Reading error messages carefully solves most problems
-
-\* Managing a server remotely without a desktop is faster than I expected
-
-\* Good documentation is part of the job
-
-
-
-\## Next
-
-
-
-\* File server with permissions
-
-\* Backup and recovery
-
-\* Second domain controller
-
-\* Microsoft Entra hybrid setup
-
-
-
-\## Note
-
-
+## Note
 
 All names and users in this repo are made up for the lab. No real passwords are stored here.
-
